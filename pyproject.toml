@@ -1,0 +1,162 @@
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2025 The Linux Foundation
+
+[project]
+name = "demo"
+version = "0.1.0"
+# Uncomment to enable dynamic versioning
+# dynamic = [ "version" ]
+description = "Template Python project"
+authors = [
+    {name = "Placeholder", email = "placeholder@users.noreply.github.com" },
+]
+dependencies = [ ]
+requires-python = "<3.13,>=3.11"
+readme = "README.md"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+classifiers = [
+  "Intended Audience :: Developers",
+  "Intended Audience :: Science/Research",
+  "Operating System :: MacOS",
+  "Operating System :: Microsoft :: Windows",
+  "Operating System :: Unix",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.11",
+  "Topic :: Office/Business :: Financial",
+  "Topic :: Scientific/Engineering",
+  "Topic :: Software Development",
+]
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+
+[tool.pdm]
+distribution = true
+
+[tool.pytest.ini_options]
+testpaths = [
+  "tests/",
+]
+addopts = ["--cov", "--cov-report=html"]
+
+[tool.coverage.run]
+source = ["src"]
+omit = ["test/*"]
+# relative_files = true
+
+[tool.coverage.report]
+# Note: Set low for this repository
+# Recommend setting a value > 90%
+fail_under = 25
+skip_empty = true
+ignore_errors = true
+show_missing = true
+exclude_lines = [
+  "pragma: no cover",
+  "def __repr__",
+  "if self.debug:",
+  "raise NotImplementedError",
+  "if __name__ == .__main__.:",
+  "pass",
+  "raise ImportError",
+]
+
+[tool.coverage.html]
+directory = "coverage_html_report"
+
+[tool.mypy]
+ignore_missing_imports = true
+
+[tool.ruff]
+# Exclude a variety of commonly ignored directories.
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".ipynb_checkpoints",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pyenv",
+    ".pytest_cache",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    ".vscode",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "site-packages",
+    "venv",
+]
+
+[tool.ruff.lint]
+extend-fixable = [
+    # Instead of trailing-whitespace
+    "W291", "W293"
+    ]
+
+extend-select = [
+    # Instead of pydocstyle
+    "D",
+    #Instead of flake8
+    "E", "F","B",
+    # Instead of pep8-naming
+    "N",
+    # Instead of flake8-debugger or debug-statements
+    "T10",
+]
+
+ignore = [
+    "E203",
+    "E501",
+    # Avoid incompatible rules
+    "D203",
+    "D213",
+]
+
+[tool.ruff.lint.extend-per-file-ignores]
+# Ignore `D` rules everywhere except for the `src/` directory.
+"!src/**.py" = ["D"]
+
+[tool.ruff.lint.pycodestyle]
+max-line-length = 120
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+docstring-code-format = false
+docstring-code-line-length = "dynamic"
+
+[dependency-groups]
+test = [
+    "pytest>=8.3.5",
+    "coverage>=7.7.1",
+]
+tox = [
+    "tox>=4.24.2",
+    "tox-pdm>=0.7.2",
+]
+lint = [
+    "pre-commit>=4.2.0",
+]
+docs = [
+    "sphinx>=8.2.3",
+    "sphinx-copybutton>=0.5.2",
+]
